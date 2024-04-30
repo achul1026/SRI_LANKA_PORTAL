@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<body>
+	<th:block layout:fragment="content">
+		<div><h1>자료실</h1></div>
+		<!-- 	이동 편의를 위한 임시 링크	 -->
+		<div><a href="/trfcinfo/trfcnews">교통소식</a> <a href="/trfcinfo/resources">자료실</a></div>
+		<div>
+			<form id="searchForm" name="searchForm" action="/trfcinfo/resources" method="get">
+				<select>
+					<option>자료구분</option>
+					<option>일반자료</option>
+					<option>분석보고서</option>
+				</select>
+				<select>
+					<option>전체</option>
+					<option>제목</option>
+					<option>내용</option>
+				</select>
+				<input type="text" id="searchContent" name="searchContent" placeholder="검색어를 입력하세요."/>
+				<input type="submit" value="조회" id="searchBtn"/>
+			</form>
+		</div>
+		<div id="totalList">총 <span id="totalCount"></span>건의 검색 결과를 찾았습니다.</div>
+		<table>
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>자료구분</th>
+					<th>제목</th>
+					<th>첨부</th>
+					<th>작성일</th>
+					<th>조회수</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr onclick="detail()">
+					<td>TEST</td>
+					<td>TEST</td>
+					<td>TEST</td>
+					<td>TEST</td>
+					<td>TEST</td>
+					<td>TEST</td>
+				</tr>
+			</tbody>
+		</table>
+<!-- 		<div th:insert="tags/paging :: pagingFragment"></div> -->
+	</th:block>
+</body>
+</html>
+<script>
+function detail(){
+	location.href="/trfcinfo/resources/detail";
+}
+</script>

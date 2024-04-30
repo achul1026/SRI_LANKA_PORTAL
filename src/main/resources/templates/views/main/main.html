@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<body>
+	<th:block layout:fragment="content">
+	<div>--- 메인 페이지 이미지 들어가는 자리 ---</div>
+	<div>
+		<div><h1>공지사항</h1></div>
+		<table>
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>제목</th>
+					<th>첨부</th>
+					<th>작성일</th>
+					<th>조회수</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr onclick="detail()">
+					<td>TEST</td>
+					<td>TEST</td>
+					<td>TEST</td>
+					<td>TEST</td>
+					<td>TEST</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		<div>
+			<div><h1>FAQ</h1></div>
+			<div>시스템이용 관련</div>
+			<div>교통지도 관련</div>
+			<div>데이터 관련</div>
+			<div>기타</div>
+			<table>
+				<tr>
+					<td>Q. 회원가입은 어떻게 하나요?</td>
+				</tr>
+				<tr>
+					<td>A. 회원가입 페이지에서 합니다.</td>
+				</tr>
+			</table>
+		</div>
+	</th:block>
+</body>
+</html>
+<script>
+	function detail(){
+		location.href="/guide/notice/detail";
+	}
+</script>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<body>
+	<th:block layout:fragment="content">
+	<div><h1>FAQ</h1></div>
+		<!-- 이동 편의를 위한 임시 링크	-->
+		<div><a href="/guide/notice">공지사항</a> <a href="/guide/faq">FAQ</a></div>
+		<div>시스템이용 관련</div>
+		<div>교통지도 관련</div>
+		<div>데이터 관련</div>
+		<div>기타</div>
+		<table>
+			<tr>
+				<td>Q. 회원가입은 어떻게 하나요?</td>
+			</tr>
+			<tr>
+				<td>A. 회원가입 페이지에서 합니다.</td>
+			</tr>
+			<tr>
+				<td>Q. 회원탈퇴 방법은 어떻게 되나요?</td>
+			</tr>
+			<tr>
+				<td>A. 마이페이지에서 회원탈퇴 버튼을 클릭하면 회원탈퇴를 하실 수 있습니다.</td>
+			</tr>
+		</table>
+	</th:block>
+</body>
+</html>
+<script>
+</script>

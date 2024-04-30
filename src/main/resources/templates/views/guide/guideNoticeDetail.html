@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<body>
+	<th:block layout:fragment="content">
+		<div><h1>공지사항</h1></div>
+		<div>공지사항 제목</div>
+		<div>
+			<div>교통 행정과</div>
+			<div>홍길동</div>
+			<div>등록일</div>
+			<div>2024-02-14</div>
+			<div>조회수</div>
+			<div>99</div>
+		</div>
+		<div>
+			<div>첨부파일</div>
+			<div>공고문.hwp</div>
+		</div>
+		<div>내용입니다.</div>
+		<input type="button" onclick="toList()" value="목록"/>
+	</th:block>
+</body>
+</html>
+<script>
+function toList(){
+	location.href="/guide/notice";
+}
+</script>

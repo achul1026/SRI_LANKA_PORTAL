@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<body>
+	<th:block layout:fragment="content">
+		<div><h1>통합검색</h1></div>
+		<div>
+			<input type="button" value="통합검색" onclick="location.href='/search/integrate'">
+			<input type="button" value="교통소식" onclick="location.href='/search/news'">
+			<input type="button" value="자료실" onclick="location.href='/search/resources'">
+			<input type="button" value="공지사항" onclick="location.href='/search/notice'">
+		</div>
+		<div>
+			<form id="searchForm" name="searchForm" action="/search/notice" method="get">
+				<input type="text" id="searchContent" name="searchContent" placeholder="검색어를 입력하세요."/>
+			</form>
+		</div>
+		<table>
+			<thead>
+				<tr>
+					<th colspan="2">공지사항 [111건]</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr onclick="guideNoticeDetail()">
+					<td>2024 교통문화지수 자료</td>
+					<td>2024-02-14</td>
+				</tr>
+				<tr onclick="guideNoticeDetail()">
+					<td>2024 교통문화지수 자료</td>
+					<td>2024-02-14</td>
+				</tr>
+				<tr onclick="guideNoticeDetail()">
+					<td>2024 교통문화지수 자료</td>
+					<td>2024-02-14</td>
+				</tr>
+			</tbody>
+		</table>
+	</th:block>
+</body>
+</html>
+<script>
+	function guideNoticeDetail(){
+		location.href="/guide/notice/detail";
+	}
+</script>

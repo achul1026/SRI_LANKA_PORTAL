@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<body>
+	<th:block layout:fragment="content">
+		<div><h1>조직도</h1></div>
+		<!-- 	이동 편의를 위한 임시 링크	 -->
+		<div><a href="/about/organization">조직도</a> <a href="/about/related-site">관련사이트</a> <a href="/about/direction">오시는 길</a></div>
+		<div>
+			<form id="searchForm" name="searchForm" action="/about/organization" method="get">
+				<select>
+					<option>전체</option>
+					<option>부서</option>
+					<option>직책</option>
+					<option>성명</option>
+					<option>전화번호</option>
+					<option>담당업무</option>
+				</select>
+				<input type="text" id="searchContent" name="searchContent" placeholder="검색어를 입력하세요."/>
+				<input type="submit" value="조회" id="searchBtn"/>
+			</form>
+		</div>
+		<table>
+			<thead>
+				<tr>
+					<th>부서</th>
+					<th>직책</th>
+					<th>성명</th>
+					<th>전화번호</th>
+					<th>담당업무</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>교통정보과</td>
+					<td>교통정보총괄팀장</td>
+					<td>정일원</td>
+					<td>012-3456-7890</td>
+					<td>교통정보 업무 총괄</td>
+				</tr>
+				<tr>
+					<td>교통정보과</td>
+					<td>교통정보총괄팀장</td>
+					<td>정일원</td>
+					<td>012-3456-7890</td>
+					<td>교통정보 업무 총괄</td>
+				</tr>
+				<tr>
+					<td>교통정보과</td>
+					<td>교통정보총괄팀장</td>
+					<td>정일원</td>
+					<td>012-3456-7890</td>
+					<td>교통정보 업무 총괄</td>
+				</tr>
+				<tr>
+					<td>교통정보과</td>
+					<td>교통정보총괄팀장</td>
+					<td>정일원</td>
+					<td>012-3456-7890</td>
+					<td>교통정보 업무 총괄</td>
+				</tr>
+			</tbody>
+		</table>
+	</th:block>
+</body>
+</html>
+<script>
+</script>

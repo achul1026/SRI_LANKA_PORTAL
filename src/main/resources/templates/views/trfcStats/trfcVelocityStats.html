@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<body>
+	<th:block layout:fragment="content">
+	<!-- 	이동 편의를 위한 임시 링크	 -->
+	<div><a href="/trfcstats/velocity">속도</a> <a href="/trfcstats/trafficvolume">교통량</a> <a href="/trfcstats/congestionrate">혼잡도</a></div>
+	<div>
+		<span>검색조건</span>
+		<div>
+			<form id="searchForm" name="searchForm" action="/trfcstats/velocity" method="get">
+				<input type="date">
+				<select>
+					<option>도로1</option>
+				</select>
+				<select>
+					<option>도로2</option>
+				</select>
+				<select>
+					<option>도로3</option>
+				</select>
+				<select>
+					<option>방향</option>
+				</select>
+				<button type="submit">조회</button>
+			</form>
+		</div>
+	</div>
+	<div>
+		<span>속도 통계차트(단위 : km/h)</span>
+		<button onclick="toResources()">자료실로 이동</button>
+		<div>--- 속도 차트 들어가는 자리 ---</div>
+	</div>
+	<div>
+		<table>
+			<thead>
+				<tr>
+					<td rowspan="2">도로</td>
+					<td colspan="11">시간대별 상시속도(km/h)</td>
+				</tr>
+				<tr>
+					<td>00-01시</td>
+					<td>01-02시</td>
+					<td>02-03시</td>
+					<td>03-04시</td>
+					<td>04-05시</td>
+					<td>05-06시</td>
+					<td>06-07시</td>
+					<td>07-08시</td>
+					<td>08-09시</td>
+					<td>09-10시</td>
+					<td>10-11시</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>A 도로</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+				</tr>
+				<tr>
+					<td>B 도로</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+				</tr>
+				<tr>
+					<td>C 도로</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+					<td>99.9</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	</th:block>
+</body>
+</html>
+<script>
+function toResources(){
+	location.href="/trfcinfo/resources";
+}
+</script>

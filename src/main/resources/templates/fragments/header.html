@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<th:block th:fragment="headerFragment">
+		<div id="header">
+			<div><a href="/main">LOGO</a></div>
+			<div><a href="/trfcstats/velocity">교통DB</a></div>
+			<div><a href="/trfcinfo/trfcnews">교통정보</a></div>
+			<div><a href="/guide/notice">이용안내</a></div>
+			<div><a href="/about/organization">기관소개</a></div>
+			<form action="/search/integrate" method="get">
+				<input type="text" id="searchContent" name="searchContent" placeholder="통합검색" />
+			</form>
+			<br>----------------------------------------------
+		</div>
+	</th:block>
+</html>
