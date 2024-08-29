@@ -4,30 +4,108 @@
       layout:decorate="~{layout/layout}">
 <body>
 	<th:block layout:fragment="content">
-		<div><h1>자료실</h1></div>
-		<div>
-			<div>일반자료</div>
-			<div>2024년 콜롬보 도로교통량</div>
+	<div id="breadCrumb">
+			<div id="breadCrumbCon">
+				<ul>
+					<li>
+						<a href="/main">
+							<img src="/images/home.png" alt="메인 페이지" class="bread-img">
+							Home
+						</a>
+					</li>
+					<li>
+						<a href="/trfcinfo/trfcnews" th:text="#{menu.main.trafficInfo}">
+							공지사항
+						</a>
+					</li>
+					<li>
+						<a href="/trfcinfo/resources" class="on" th:text="#{menu.sub.trafficInfo.resources}">
+							상세페이지
+						</a>
+					</li>
+				</ul>
+			</div>
 		</div>
-		<div>
-			<div>교통 행정과</div>
-			<div>홍길동</div>
-			<div>등록일</div>
-			<div>2024-02-14</div>
-			<div>조회수</div>
-			<div>99</div>
+		<div id="containerWrap">
+			<div id="CmLeftMenu">
+				<div id="CmLeftTitle" th:text="#{menu.main.trafficInfo}">
+					교통정보
+				</div>
+				<div id="detailCmList">
+					<ul>
+						<li>
+							<a href="/trfcinfo/trfcnews" class="detail-cm-btn">
+								<span th:text="#{menu.sub.trafficInfo.news}">교통소식</span>
+								<img src="/images/cm_arrow.png" alt="더 보기" class="left-cm-arrow">
+							</a>
+						</li>
+						<li>
+							<a href="/trfcinfo/resources" class="detail-cm-btn">
+								<span th:text="#{menu.sub.trafficInfo.resources}">자료실</span>
+								<img src="/images/cm_arrow.png" alt="더 보기" class="left-cm-arrow">
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<!--디테일 메인-->
+			<div id="detailMain">
+				<div id="detailTitle">
+					<h3 th:text="#{menu.sub.trafficInfo.resources}">자료실</h3>
+				</div>
+				<div id="detailConTitle" th:text="${bbsInfo.bbsTitle}">
+					공지사항 타이틀 입니다.
+				</div>
+				<div class="detail-con-list detail-con-info">
+					<div class="detail-con-write detail-con-cm">
+						<span th:text="${bbsInfo.userDept}">교통 행정과</span> : <span th:text="${bbsInfo.userNm}">박지훈</span>
+					</div>
+					<div class="detail-con-date detail-con-cm">
+						<div class="detail-con-date-cm">
+							<span th:text="#{common.table.registDate}">등록일</span> : <span th:text="${bbsInfo.registDt}">2024.05.29</span>
+						</div>
+						<div class="detail-con-date-cm">
+							<span th:text="#{common.table.view}">조회수</span> : <span th:text="${bbsInfo.viewCnt}">50</span>
+						</div>
+					</div>
+				</div>
+				<th:block th:if="${not #lists.isEmpty(bbsFile)}">
+					<div class="detail-con-list">
+						<div class="detail-con-write detail-con-cm" th:each="item:${bbsFile}">
+							<img src="/images/pdf_img.png" alt="pdf" class="file-cm-img">
+							<span th:text="|${item.orgFilenm}|" th:onclick="location.href='/download/'+[[${item.fileId}]]">급여종류.pdf</span>
+						</div>
+					</div>
+				</th:block>
+				<div class="detail-con-list">
+					<div class="detail-con-text" th:text="${bbsInfo.bbsCnts}">
+						공지사항 내용 입니다.
+					</div>
+				</div>
+				<div id="listBtnWrap">
+					<input type="button" class="is-basic-button" onclick="location.href='/trfcinfo/resources'" th:value="#{common.button.list}"/>
+				</div>
+				
+				<!--이전글&다음글-->
+				<div id="prevNextCon">
+					<div class="prev-next-con-list" th:if="${not #strings.isEmpty(bbsInfo.nextBbsId)}">
+						<div class="prev-title prev-next-cm">
+							<span th:text="#{common.table.nextPost}">다음글</span>
+							<img src="/images/cm_arrow.png" alt="다음글" class="next-img"> 
+						</div>
+						<a th:href="@{/trfcinfo/resources/{bbsId}(bbsId=${bbsInfo.nextBbsId})}" class="cm-ntpr-btn" th:text="${bbsInfo.nextBbsTitle}">다음글 입니다.</a>
+					</div>
+					<div class="prev-next-con-list" th:if="${not #strings.isEmpty(bbsInfo.prevBbsId)}">
+						<div class="prev-title prev-next-cm">
+							<span th:text="#{common.table.prePost}">이전글</span>
+							<img src="/images/cm_arrow.png" alt="이전글" class="prev-img"> 
+						</div>
+						<a th:href="@{/trfcinfo/resources/{bbsId}(bbsId=${bbsInfo.prevBbsId})}" class="cm-ntpr-btn" th:text="${bbsInfo.prevBbsTitle}">다음글 입니다.</a>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div>
-			<div>첨부파일</div>
-			<div>공고문.hwp</div>
-		</div>
-		<div>내용입니다.</div>
-		<input type="button" onclick="toList()" value="목록"/>
 	</th:block>
 </body>
 </html>
-<script>
-function toList(){
-	location.href="/trfcinfo/resources";
-}
-</script>

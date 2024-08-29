@@ -1,95 +1,91 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
 <body>
 	<th:block layout:fragment="content">
-		<div><h1>통합검색</h1></div>
-		<div>
-			<input type="button" value="통합검색" onclick="location.href='/search/integrate'">
-			<input type="button" value="교통소식" onclick="location.href='/search/news'">
-			<input type="button" value="자료실" onclick="location.href='/search/resources'">
-			<input type="button" value="공지사항" onclick="location.href='/search/notice'">
+		<div id="breadCrumb">
+			<div id="breadCrumbCon">
+				<ul>
+					<li>
+						<a href="/main">
+							<img src="/images/home.png" alt="메인 페이지" class="bread-img">
+							Home
+						</a>
+					</li>
+					<li>
+						<a href="/search" th:text="#{common.search.total}">
+							공지사항
+						</a>
+					</li>
+				</ul>
+			</div>
 		</div>
-		<div>
-			<form id="searchForm" name="searchForm" action="/search/integrate" method="get">
-				<input type="text" id="searchContent" name="searchContent" placeholder="검색어를 입력하세요."/>
-			</form>
+		<div id="searchBanner">
+			<div id="searchBannerCon">
+				<div id="searchTitle" th:text="#{common.search.total}">전체 검색</div>
+				<div id="searchBox">
+					<!--					<select id="searchSelect">-->
+					<!--						<option>전체</option>-->
+					<!--					</select>-->
+					<div id="searchBannerInput">
+						<form id="searchForm" name="searchForm" action="/search">
+							<input type="text" id="searchContent" class="search-banner-input" name="searchContent" th:value="${searchDTO.searchContent}"
+								th:placeholder="#{common.search.placeholder.searchContext}" />
+							<img src="/images/search.png" alt="검색버튼" id="searchBannerIcon" onclick="submit()">
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
-		<table>
-			<thead>
-				<tr>
-					<th colspan="2">교통소식 [111건]</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr onclick="trfcNewsDetail()">
-					<td>2024 교통문화지수 결과 발표</td>
-					<td>2024-02-14</td>
-				</tr>
-				<tr onclick="trfcNewsDetail()">
-					<td>2024 교통문화지수 결과 발표</td>
-					<td>2024-02-14</td>
-				</tr>
-				<tr onclick="trfcNewsDetail()">
-					<td>2024 교통문화지수 결과 발표</td>
-					<td>2024-02-14</td>
-				</tr>
-			</tbody>
-		</table>
-		<table>
-			<thead>
-				<tr>
-					<th colspan="2">자료실 [111건]</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr onclick="trfcResourcesDetail()">
-					<td>2024 교통문화지수 자료</td>
-					<td>2024-02-14</td>
-				</tr>
-				<tr onclick="trfcResourcesDetail()">
-					<td>2024 교통문화지수 자료</td>
-					<td>2024-02-14</td>
-				</tr>
-				<tr onclick="trfcResourcesDetail()">
-					<td>2024 교통문화지수 자료</td>
-					<td>2024-02-14</td>
-				</tr>
-			</tbody>
-		</table>
-		<table>
-			<thead>
-				<tr>
-					<th colspan="2">공지사항 [111건]</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr onclick="guideNoticeDetail()">
-					<td>2024 교통문화지수 자료</td>
-					<td>2024-02-14</td>
-				</tr>
-				<tr onclick="guideNoticeDetail()">
-					<td>2024 교통문화지수 자료</td>
-					<td>2024-02-14</td>
-				</tr>
-				<tr onclick="guideNoticeDetail()">
-					<td>2024 교통문화지수 자료</td>
-					<td>2024-02-14</td>
-				</tr>
-			</tbody>
-		</table>
+		<div id="totalSearchBtnWrap">
+			<input type="button" th:value="#{common.search.total}" class="search-cm-btn on" onclick="integratedSearchList()">
+			<input type="button" th:each="item:${boardList}" th:value="${item.cdNm}" th:data-cd="${item.cd}" class="search-cm-btn on" th:onclick="integratedSearchList([[${item.cd}]])">
+			
+<!-- 			<input type="button" th:value="#{menu.sub.trafficInfo.news}" class="search-cm-btn" onclick="integratedSearchList('BTC002')"> -->
+<!-- 			<input type="button" th:value="#{menu.sub.trafficInfo.resources}" class="search-cm-btn" onclick="integratedSearchList('BTC003')"> -->
+<!-- 			<input type="button" th:value="#{menu.sub.guide.notice}" class="search-cm-btn" onclick="integratedSearchList('BTC001')"> -->
+		</div>
+
+		<!--전체 리스트-->
+		<div id="searchList">
+			
+		</div>
 	</th:block>
 </body>
+
 </html>
-<script>
-	function trfcNewsDetail(){
-		location.href="/trfcinfo/trfcnews/detail";
-	}
-	function trfcResourcesDetail(){
-		location.href="/trfcinfo/resources/detail";
-	}
-	function guideNoticeDetail(){
-		location.href="/guide/notice/detail";
+<script th:inline="javascript">
+	document.addEventListener("DOMContentLoaded",function(){
+		integratedSearchList(null);
+	});
+	
+	function integratedSearchList(type){
+		
+		let btnList = document.querySelectorAll('.search-cm-btn');
+	       
+		for(let i = 0; i < btnList.length;i++){
+			btnList[i].classList.remove('on');
+			if(type == btnList[i].getAttribute('data-cd')){
+				btnList[i].classList.add('on');			   
+			}
+		}
+		
+		const searchContent = /*[[${searchDTO.searchContent}]]*/
+		const params = new URLSearchParams();
+		params.append("searchContent",searchContent);
+		
+        if(type == null){
+        	type = 'all';
+        }
+        
+		fetch(`${__contextPath__}/search/${type}?${params.toString()}`)
+		.then((response) => {
+			return response.text();
+		})
+		.then((html) => {
+			const appendDiv = document.getElementById('searchList');
+			appendDiv.innerHTML = html;
+		});
 	}
 </script>

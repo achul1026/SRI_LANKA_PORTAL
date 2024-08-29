@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<th:block th:if="${type eq 'all' or type eq 'BTC002'}">
+	<div class="cm-search-list-wrap">
+		<div class="cm-search-list-title">
+			<h3 th:text="#{menu.sub.trafficInfo.news}">교통소식</h3>
+		</div>
+		<div class="cm-search-list-con">
+			<th:block th:unless="${not #lists.isEmpty(newsList)}">
+				<div class="cm-no-search">
+					<img src="/images/no_pt_search_list_img.png" alt="검색결과 없음" class="no-search-img">
+					<p th:text="#{common.search.result.notExist}">입력된 내용이 없습니다.</p>
+				</div>
+			</th:block>
+			<th:block th:if="${not #lists.isEmpty(newsList)}">
+				<a th:href="@{/trfcinfo/trfcnews/{bbsId}(bbsId=${item.bbsId})}" class="cm-search-list" th:each="item:${newsList}">
+					<div class="cm-search-list-left">
+						<div class="cm-search-list-con-title" th:text="${item.bbsTitle}">
+							교통소식 및 재해보상 내용 급여 종류
+						</div>
+						<div class="cm-search-list-con-sub-title" th:text="${#strings.abbreviate(item.bbsCnts,60)}">
+							게시글 내용입니다.
+						</div>
+						<div th:text="${item.registDt}"></div>
+					</div>
+				</a>
+				<!--더 보기-->
+				<div class="search-list-more-btn-wrap">
+					<a href="/trfcinfo/trfcnews" class="search-list-more-btn">
+						<span th:text="#{common.button.view.all}">전체 보기</span>
+						<img src="/images/cm_list_more_arrow.png" alt="전체 보기" class="cm-list-more-img">
+					</a>
+				</div>
+			</th:block>
+		</div>
+	</div>
+</th:block>
+
+<th:block th:if="${type eq 'all' or type eq 'BTC003'}">
+	<div class="cm-search-list-wrap">
+		<div class="cm-search-list-title">
+			<h3 th:text="#{menu.sub.trafficInfo.resources}">자료실</h3>
+		</div>
+		<div class="cm-search-list-con">
+			<th:block th:unless="${not #lists.isEmpty(resourcesList)}">
+				<div class="cm-no-search">
+					<img src="/images/no_pt_search_list_img.png" alt="검색결과 없음" class="no-search-img">
+					<p th:text="#{common.search.result.notExist}">입력된 내용이 없습니다.</p>
+				</div>
+			</th:block>
+			<th:block th:if="${not #lists.isEmpty(resourcesList)}">
+				<a th:href="@{/trfcinfo/resources/{bbsId}(bbsId=${item.bbsId})}" class="cm-search-list" th:each="item:${resourcesList}">
+					<div class="cm-search-list-left">
+						<div class="cm-search-list-con-title" th:text="${item.bbsTitle}">
+							교통소식 및 재해보상 내용 급여 종류
+						</div>
+						<div class="cm-search-list-con-sub-title" th:text="${#strings.abbreviate(item.bbsCnts,60)}">
+							게시글 내용입니다.
+						</div>
+						<div th:text="${item.registDt}"></div>
+					</div>
+				</a>
+		
+				<!--더 보기-->
+				<div class="search-list-more-btn-wrap">
+					<a href="/trfcinfo/resources" class="search-list-more-btn">
+						<span th:text="#{common.button.view.all}">전체 보기</span>
+						<img src="/images/cm_list_more_arrow.png" alt="전체 보기" class="cm-list-more-img">
+					</a>
+				</div>
+			</th:block>
+		</div>
+	</div>
+</th:block>
+
+<th:block th:if="${type eq 'all' or type eq 'BTC001'}">
+	<div class="cm-search-list-wrap">
+		<div class="cm-search-list-title">
+			<h3 th:text="#{menu.sub.guide.notice}">공지사항</h3>
+		</div>
+		<div class="cm-search-list-con">
+			<th:block th:unless="${not #lists.isEmpty(noticeList)}">
+				<div class="cm-no-search">
+					<img src="/images/no_pt_search_list_img.png" alt="검색결과 없음" class="no-search-img">
+					<p th:text="#{common.search.result.notExist}">입력된 내용이 없습니다.</p>
+				</div>
+			</th:block>
+			<th:block th:if="${not #lists.isEmpty(noticeList)}">
+				<a th:href="@{/guide/notice/{bbsId}(bbsId=${item.bbsId})}" class="cm-search-list" th:each="item:${noticeList}">
+					<div class="cm-search-list-left">
+						<div class="cm-search-list-con-title" th:text="${item.bbsTitle}">
+							교통소식 및 재해보상 내용 급여 종류
+						</div>
+						<div class="cm-search-list-con-sub-title" th:text="${#strings.abbreviate(item.bbsCnts,60)}">
+							게시글 내용입니다.
+						</div>
+						<div th:text="${item.registDt}"></div>
+					</div>
+				</a>
+		
+				<!--더 보기-->
+				<div class="search-list-more-btn-wrap">
+					<a href="/guide/notice" class="search-list-more-btn">
+						<span th:text="#{common.button.view.all}">전체 보기</span>
+						<img src="/images/cm_list_more_arrow.png" alt="전체 보기" class="cm-list-more-img">
+					</a>
+				</div>
+			</th:block>
+		</div>
+	</div>
+</th:block>
+</html>

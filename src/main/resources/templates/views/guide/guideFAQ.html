@@ -1,32 +1,142 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
 <body>
 	<th:block layout:fragment="content">
-	<div><h1>FAQ</h1></div>
-		<!-- 이동 편의를 위한 임시 링크	-->
-		<div><a href="/guide/notice">공지사항</a> <a href="/guide/faq">FAQ</a></div>
-		<div>시스템이용 관련</div>
-		<div>교통지도 관련</div>
-		<div>데이터 관련</div>
-		<div>기타</div>
-		<table>
-			<tr>
-				<td>Q. 회원가입은 어떻게 하나요?</td>
-			</tr>
-			<tr>
-				<td>A. 회원가입 페이지에서 합니다.</td>
-			</tr>
-			<tr>
-				<td>Q. 회원탈퇴 방법은 어떻게 되나요?</td>
-			</tr>
-			<tr>
-				<td>A. 마이페이지에서 회원탈퇴 버튼을 클릭하면 회원탈퇴를 하실 수 있습니다.</td>
-			</tr>
-		</table>
+		<div id="breadCrumb">
+			<div id="breadCrumbCon">
+				<ul>
+					<li>
+						<a href="/main">
+							<img src="/images/home.png" alt="메인 페이지" class="bread-img">
+							Home
+						</a>
+					</li>
+					<li>
+						<a href="/guide/notice" th:text="#{menu.main.guide}">
+							공지사항
+						</a>
+					</li>
+					<li>
+						<a href="/guide/notice" th:text="#{menu.sub.guide.faq}">
+							상세페이지
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		<div id="container">
+			<div id="CmLeftMenu">
+				<div id="CmLeftTitle" th:text="#{menu.main.guide}">
+					이용안내
+				</div>
+				<div id="detailCmList">
+					<ul>
+						<li>
+							<a href="/guide/notice" class="detail-cm-btn">
+								<span th:text="#{menu.sub.guide.notice}">공지사항</span>
+								<img src="/images/cm_arrow.png" alt="더 보기" class="left-cm-arrow">
+							</a>
+						</li>
+						<li>
+							<a href="/guide/faq" class="detail-cm-btn">
+								<span th:text="#{menu.sub.guide.faq}">FAQ</span>
+								<img src="/images/cm_arrow.png" alt="더 보기" class="left-cm-arrow">
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div id="containerTable">
+				<div id="cmTableTitle">
+					<h3>FAQ</h3>
+					<div id="totalSearchBtnWrap" class="faq-tab-btn-wrap">
+<!-- 						<input type="button" value="시스템 이용 관련" class="search-cm-btn"> -->
+<!-- 						<input type="button" value="교통지도 관련" class="search-cm-btn"> -->
+<!-- 						<input type="button" value="데이터 관련" class="search-cm-btn"> -->
+<!-- 						<input type="button" value="기타" class="search-cm-btn"> -->
+						<th:block th:each="item:${faqList}">
+							<input type="button" th:value="${item.cdNm}" th:data-cd="${item.cd}" onclick="asynchronousSearchList(this)" class="search-cm-btn">
+						</th:block>
+					</div>
+					<div id="faqTitle">
+						<h3 id="">교통지도 관련</h3>
+					</div>
+					<div id="faqCon">
+						
+					</div>
+				</div>
+
+			</div>
+		</div>
 	</th:block>
 </body>
+
 </html>
 <script>
+document.addEventListener("DOMContentLoaded",function(){
+	asynchronousSearchList(null);
+});
+
+function faqToggle(_this) {
+	const mobileBtns = document.querySelectorAll('.faq-con-list-wrap');
+	let clickedIndex = _this.getAttribute('data-idx');
+
+	mobileBtns.forEach((btn, index) => {
+		const faqAns = btn.querySelector('.faq-ans');
+		const faqArrows = btn.querySelector('.faq-arrow');
+
+		if (clickedIndex == index) {
+			if (faqAns.classList.contains("on")) {
+				faqAns.classList.remove('on');
+				faqArrows.classList.remove('on');
+			} else {
+				faqAns.classList.add('on');
+				faqArrows.classList.add('on');
+			}
+		} else {
+			faqAns.classList.remove('on');
+			faqArrows.classList.remove('on');
+		}
+	});
+}
+	
+function asynchronousSearchList(_this){
+    
+	let type = 'FTC001';
+	
+	if(_this != null && _this.getAttribute('data-cd') != null){
+		type = _this.getAttribute('data-cd');
+	} else if(document.getElementById('type')){
+		type = document.getElementById('type').value;
+	}
+    
+    const params = new URLSearchParams();
+	let pageNo = document.getElementById('asynchronousPageNo') != null ? document.getElementById('asynchronousPageNo').value : 1;
+    params.append('pageNo', pageNo);
+     
+	fetch(`${__contextPath__}/guide/faq/${type}?${params.toString()}`)
+	.then((response) => {
+		return response.text();
+	})
+	.then((html) => {
+		let btnList = document.querySelectorAll('.search-cm-btn');
+	    
+	    for(let i = 0; i < btnList.length;i++){
+			btnList[i].classList.remove('on');
+			if(type == btnList[i].dataset.cd){
+				btnList[i].classList.add('on');
+			}
+		}
+	    
+	    let title = document.querySelector('.search-cm-btn.on').value;
+		document.getElementById('faqTitle').querySelector('h3').innerText = title;
+		
+		const appendDiv = document.getElementById('faqCon');
+		appendDiv.innerHTML = html;
+	});
+}
 </script>

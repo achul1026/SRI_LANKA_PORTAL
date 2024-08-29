@@ -1,109 +1,219 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
 <body>
 	<th:block layout:fragment="content">
-	<!-- 	이동 편의를 위한 임시 링크	 -->
-	<div><a href="/trfcstats/velocity">속도</a> <a href="/trfcstats/trafficvolume">교통량</a> <a href="/trfcstats/congestionrate">혼잡도</a></div>
-	<div>
-		<span>검색조건</span>
-		<div>
-			<form id="searchForm" name="searchForm" action="/trfcstats/velocity" method="get">
-				<input type="date">
-				<select>
-					<option>도로1</option>
-				</select>
-				<select>
-					<option>도로2</option>
-				</select>
-				<select>
-					<option>도로3</option>
-				</select>
-				<select>
-					<option>방향</option>
-				</select>
-				<button type="submit">조회</button>
-			</form>
+		<div id="breadCrumb">
+			<div id="breadCrumbCon">
+				<ul>
+					<li>
+						<a href="/main">
+							<img src="/images/home.png" alt="메인 페이지" class="bread-img">
+							Home
+						</a>
+					</li>
+					<li>
+						<a href="/trfcstats/velocity" th:text="#{menu.main.trafficDB}">
+							공지사항
+						</a>
+					</li>
+					<li>
+						<a href="/trfcstats/velocity" class="on" th:text="#{menu.sub.trafficDB.velocity}">
+							상세페이지
+						</a>
+					</li>
+				</ul>
+			</div>
 		</div>
-	</div>
-	<div>
-		<span>속도 통계차트(단위 : km/h)</span>
-		<button onclick="toResources()">자료실로 이동</button>
-		<div>--- 속도 차트 들어가는 자리 ---</div>
-	</div>
-	<div>
-		<table>
-			<thead>
-				<tr>
-					<td rowspan="2">도로</td>
-					<td colspan="11">시간대별 상시속도(km/h)</td>
-				</tr>
-				<tr>
-					<td>00-01시</td>
-					<td>01-02시</td>
-					<td>02-03시</td>
-					<td>03-04시</td>
-					<td>04-05시</td>
-					<td>05-06시</td>
-					<td>06-07시</td>
-					<td>07-08시</td>
-					<td>08-09시</td>
-					<td>09-10시</td>
-					<td>10-11시</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>A 도로</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-				</tr>
-				<tr>
-					<td>B 도로</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-				</tr>
-				<tr>
-					<td>C 도로</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-					<td>99.9</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+
+		<div id="container">
+			<div id="CmLeftMenu">
+				<div id="CmLeftTitle" th:text="#{menu.main.trafficDB}">
+					교통DB
+				</div>
+				<div id="detailCmList">
+					<ul>
+						<li>
+							<a href="/trfcstats/velocity" class="detail-cm-btn">
+								<span th:text="#{menu.sub.trafficDB.velocity}">속도</span>
+								<img src="/images/cm_arrow.png" alt="더 보기" class="left-cm-arrow">
+							</a>
+						</li>
+						<li>
+							<a href="/trfcstats/trafficvolume" class="detail-cm-btn">
+								<span th:text="#{menu.sub.trafficDB.trafficvolume}">교통량</span>
+								<img src="/images/cm_arrow.png" alt="더 보기" class="left-cm-arrow">
+							</a>
+						</li>
+<!-- 						<li> -->
+<!-- 							<a href="/trfcstats/congestionrate" class="detail-cm-btn"> -->
+<!-- 								<span th:text="#{menu.sub.trafficDB.congestionrate}">혼잡도</span> -->
+<!-- 								<img src="/images/cm_arrow.png" alt="더 보기" class="left-cm-arrow"> -->
+<!-- 							</a> -->
+<!-- 						</li> -->
+					</ul>
+				</div>
+			</div>
+
+			<div id="containerTable">
+				<div id="cmTableTitle">
+					<h3 th:text="#{menu.sub.trafficDB.velocity}">속도</h3>
+				</div>
+				<div id="cmChartFilter">
+					<form id="searchForm" class="chart-filter-form" name="searchForm" action="/trfcstats/velocity"
+						method="get">
+						<dl class="chart__filter">
+							<dt th:text="#{statistics.search.selectYear}">년도선택</dt>
+							<dd>
+								<div class="cm-select-box">
+									<input type="date" name="date" th:value="${statsSearchDTO.date}">
+<!-- 									<select class="cm-table-select chart-select" name="years"> -->
+<!-- 										<option th:each="month : ${#numbers.sequence(01, 12)}" th:text="|2024-${#strings.format('%02d', month)}|" th:value="|2024-${#strings.format('%02d', month)}|"  th:selected="${searchDate} == ${month}">2024년</option> -->
+<!-- 									</select> -->
+<!-- 									<img src="/images/select_arrow.png" alt="화살표" class="cm-select-img"> -->
+								</div>
+<!-- 								임시 데이터 -->
+								<span style="color: white;">VDS : 2024-08-05</span>
+								<span style="color: white;">고정형 : 2024-06-26</span>
+								<span style="color: white;">이동형 : 2024-08-05</span>
+							</dd>
+						</dl>
+<!-- 						<dl class="chart__filter"> -->
+<!-- 							<dt th:text="#{statistics.search.selectRoad}">도로선택</dt> -->
+<!-- 							<dd> -->
+<!-- 								<div class="select-list"> -->
+<!-- 									<div class="cm-select-box"> -->
+<!-- 										<select class="cm-table-select chart-select"> -->
+<!-- 											<option>도로1</option> -->
+<!-- 										</select> -->
+<!-- 										<img src="/images/select_arrow.png" alt="화살표" class="cm-select-img"> -->
+<!-- 									</div> -->
+<!-- 									<div class="cm-select-box"> -->
+<!-- 										<select class="cm-table-select chart-select"> -->
+<!-- 											<option>도로2</option> -->
+<!-- 										</select> -->
+<!-- 										<img src="/images/select_arrow.png" alt="화살표" class="cm-select-img"> -->
+<!-- 									</div> -->
+<!-- 									<div class="cm-select-box"> -->
+<!-- 										<select class="cm-table-select chart-select"> -->
+<!-- 											<option>도로3</option> -->
+<!-- 										</select> -->
+<!-- 										<img src="/images/select_arrow.png" alt="화살표" class="cm-select-img"> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</dd> -->
+<!-- 						</dl> -->
+<!-- 						<dl class="chart__filter"> -->
+<!-- 							<dt th:text="#{statistics.search.direction}">방향</dt> -->
+<!-- 							<dd> -->
+<!-- 								<div class="cm-select-box"> -->
+<!-- 									<select class="cm-table-select chart-select"> -->
+<!-- 										<option>방향</option> -->
+<!-- 									</select> -->
+<!-- 									<img src="/images/select_arrow.png" alt="화살표" class="cm-select-img"> -->
+<!-- 								</div> -->
+<!-- 							</dd> -->
+<!-- 						</dl> -->
+						<dl class="chart__filter">
+							<dt th:text="#{common.select.class}">타입</dt>
+							<dd>
+								<div class="cm-select-box">
+									<select class="cm-table-select chart-select" name="searchType">
+										<option th:each="item:${facilityList}" th:value="${item.cd}" th:text="${item.cdNm}" th:selected="${statsSearchDTO.searchType eq item.cd}">
+									</select>
+									<img src="/images/select_arrow.png" alt="화살표" class="cm-select-img">
+								</div>
+							</dd>
+						</dl>
+						<div id="filterBtnWrap">
+							<button type="submit" class="is-key-button" th:text="#{common.button.search}">조회</button>
+						</div>
+					</form>
+				</div>
+				<th:block th:if="${not #maps.isEmpty(velocityStats)}">
+				<div id="cmChartWrap">
+					<div id="cmChartTitle">
+						<div id="chartStatisText"><span th:text="#{statistics.velocity.chart}">혼잡도 통계차트</span>(<span
+								th:text="#{statistics.unit}">단위</span> : km/h)</div>
+<!-- 								차후 엑셀 다운로드로 변경 -->
+						<button onclick="toResources()" class="is-basic-button cm-wd100-btn"
+							th:text="#{menu.sub.trafficInfo.resources}">자료실로 이동</button>
+					</div>
+					<div id="chartWrap">
+
+					</div>
+				</div>
+<!-- 				<div id="trafficTableWrap"> -->
+<!-- 					<table id="chartTable"> -->
+<!-- 						<thead> -->
+<!-- 							<tr> -->
+<!-- 								<td rowspan="2" th:text="#{statistics.road}">도로</td> -->
+<!-- 								<td colspan="11" th:text="#{statistics.congestion.time}">시간대별 혼잡도(%)</td> -->
+<!-- 							</tr> -->
+<!-- 							<tr> -->
+<!-- 								<td>00-01시</td> -->
+<!-- 								<td>01-02시</td> -->
+<!-- 								<td>02-03시</td> -->
+<!-- 								<td>03-04시</td> -->
+<!-- 								<td>04-05시</td> -->
+<!-- 								<td>05-06시</td> -->
+<!-- 								<td>06-07시</td> -->
+<!-- 								<td>07-08시</td> -->
+<!-- 								<td>08-09시</td> -->
+<!-- 								<td>09-10시</td> -->
+<!-- 								<td>10-11시</td> -->
+<!-- 							</tr> -->
+<!-- 						</thead> -->
+<!-- 						<tbody> -->
+<!-- 							<tr> -->
+<!-- 								<td>A 도로</td> -->
+<!-- 								<td>99.9</td> -->
+<!-- 								<td>99.9</td> -->
+<!-- 								<td>99.9</td> -->
+<!-- 								<td>99.9</td> -->
+<!-- 								<td>99.9</td> -->
+<!-- 								<td>99.9</td> -->
+<!-- 								<td>99.9</td> -->
+<!-- 								<td>99.9</td> -->
+<!-- 								<td>99.9</td> -->
+<!-- 								<td>99.9</td> -->
+<!-- 								<td>99.9</td> -->
+<!-- 							</tr> -->
+<!-- 						</tbody> -->
+<!-- 					</table> -->
+<!-- 				</div> -->
+				<script th:inline="javascript">
+					const jsonString = /*[[${velocityStats.resultData}]]*/ '{}';
+					
+					const data = JSON.parse(jsonString);
+					
+					const legend = data.legend;
+					const avgSpeed = data.avgSpeed;
+					/**단속 차트***/
+					new rdaChart(ChartType.LINE).init("chartWrap")
+						.setData({
+							labels: legend,
+							datasets: [{
+								data: avgSpeed,
+								label: "Average Speed",
+								backgroundColor: "#FF8383",
+								borderColor: "#FF8383",
+								fill: false
+							}
+							]
+						})
+						.draw();
+				</script>
+			</th:block>
+			</div>
+		</div>
 	</th:block>
 </body>
+
 </html>
-<script>
-function toResources(){
-	location.href="/trfcinfo/resources";
-}
+<script th:inline="javascript">
+	function toResources() {
+		location.href = "/trfcinfo/resources";
+	}
 </script>

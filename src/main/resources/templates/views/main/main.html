@@ -1,53 +1,169 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
 <body>
 	<th:block layout:fragment="content">
-	<div>--- 메인 페이지 이미지 들어가는 자리 ---</div>
-	<div>
-		<div><h1>공지사항</h1></div>
-		<table>
-			<thead>
-				<tr>
-					<th>번호</th>
-					<th>제목</th>
-					<th>첨부</th>
-					<th>작성일</th>
-					<th>조회수</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr onclick="detail()">
-					<td>TEST</td>
-					<td>TEST</td>
-					<td>TEST</td>
-					<td>TEST</td>
-					<td>TEST</td>
-				</tr>
-			</tbody>
-		</table>
-		</div>
-		<div>
-			<div><h1>FAQ</h1></div>
-			<div>시스템이용 관련</div>
-			<div>교통지도 관련</div>
-			<div>데이터 관련</div>
-			<div>기타</div>
-			<table>
-				<tr>
-					<td>Q. 회원가입은 어떻게 하나요?</td>
-				</tr>
-				<tr>
-					<td>A. 회원가입 페이지에서 합니다.</td>
-				</tr>
-			</table>
-		</div>
+		<main>
+			<div id="Container">
+				<div id="mobileSearchWrap">
+					<form id="mainSearch" action="/search" method="get">
+						<input type="text" id="searchContent" name="searchContent"
+							th:placeholder="#{common.search.total}" />
+						<img src="/images/search.png" alt="검색버튼" id="searchIcon">
+					</form>
+				</div>
+				<div id="mainBanner" class="cm-wd-1300">
+					<div id="mainText" th:text="#{main.title}">
+						RDA 도로교통조사 시스템
+					</div>
+					<div id="mainBannerImg"></div>
+				</div>
+				<div id="findService" class="cm-wdmg-1300">
+					<h3 id="findServiceTitle" th:text="#{main.frequently}">자주 찾는 서비스</h3>
+					<div class="cm-list-wrap">
+						<div class="service-list service-blue">
+							<a href="/trfcinfo/trfcnews">
+								<div class="service-list-con">
+									<div class="service-list-sub-con service-order2">
+										<div class="service-list-con-title" th:text="#{menu.sub.trafficInfo.news}">교통소식
+										</div>
+										<img src="/images/service_arrow.png" alt="로고" class="service_more">
+									</div>
+									<div class="service-list-sub-con service-order1">
+										<img src="/images/service_icon01.png" alt="로고" class="service_img">
+									</div>
+								</div>
+							</a>
+						</div>
+						<div class="service-list service-skyblue">
+							<a href="/trfcstats/trafficvolume">
+								<div class="service-list-con">
+									<div class="service-list-sub-con service-order2">
+										<div class="service-list-con-title"
+											th:text="#{menu.sub.trafficDB.trafficvolume}">차종별 교통량</div>
+										<img src="/images/service_arrow.png" alt="로고" class="service_more">
+									</div>
+									<div class="service-list-sub-con service-order1">
+										<img src="/images/service_icon02.png" alt="로고" class="service_img">
+									</div>
+								</div>
+							</a>
+						</div>
+						<div class="service-list service-green">
+							<a href="/trfcstats/congestionrate">
+								<div class="service-list-con">
+									<div class="service-list-sub-con service-order2">
+										<div class="service-list-con-title"
+											th:text="#{menu.sub.trafficDB.congestionrate}">시간대별 혼잡도</div>
+										<img src="/images/service_arrow.png" alt="로고" class="service_more">
+									</div>
+									<div class="service-list-sub-con service-order1">
+										<img src="/images/service_icon03.png" alt="로고" class="service_img">
+									</div>
+								</div>
+							</a>
+						</div>
+						<div class="service-list service-violet">
+							<a href="/trfcstats/velocity">
+								<div class="service-list-con">
+									<div class="service-list-sub-con service-order2">
+										<div class="service-list-con-title" th:text="#{menu.sub.trafficDB.velocity}">
+											시간대별 속도</div>
+										<img src="/images/service_arrow.png" alt="로고" class="service_more">
+									</div>
+									<div class="service-list-sub-con service-order1">
+										<img src="/images/service_icon04.png" alt="로고" class="service_img">
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div id="noticeWrap">
+					<div class="cm-wd-1300">
+						<div class="cm-title">
+							<div>
+								<a href="/guide/notice" class="cm-title-con">
+									<span th:text="#{menu.sub.guide.notice}">공지사항</span>
+									<img src="/images/more_arrow.png" alt="더 보기" class="cm_arrow">
+								</a>
+							</div>
+							<div id="noticeTitleText" th:text="#{main.notice.decription}">
+								RDA에 새로운 전달사항을 확인할수 있습니다.
+							</div>
+						</div>
+						<div class="notice-contain">
+							<div class="cm-list-wrap notice-list-wrap">
+								<a th:href="@{/guide/notice/{bbsId}(bbsId=${item.bbsId})}" class="notice__list"
+									th:each="item:${noticeList}">
+									<!-- 								<div class="notice-category"> -->
+									<!-- 									<span>카테고리</span> -->
+									<!-- 								</div> -->
+									<div class="notice-title" th:text="${item.bbsTitle}">
+										공지사항 타이틀 입니다.
+									</div>
+									<div class="notice-date"
+										th:text="${#temporals.format(item.registDt,'yyyy-MM-dd HH:mm')}">
+										2024.03.30
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div id="faqRoadWrap">
+					<div class="cm-wdmg-1300 faq-load-container">
+						<div id="faq">
+							<div>
+								<div class="cm-title-con">
+									<a href="/guide/faq" class="cm-title-con">
+										<span th:text="#{menu.sub.guide.faq}">자주묻는질문</span>
+										<img src="/images/more_arrow.png" alt="더 보기" class="cm_arrow">
+									</a>
+								</div>
+							</div>
+							<div class="faq__list_wrap cm__list_margin">
+								<a href="" class="faq__list" th:each="item:${faqList}">
+									<div class="faq__list_con">
+										<img src="/images/faq_img.png" alt="faq" class="faq-img">
+										<div class="faq__list_con" th:text="${item.faqQstn}">황금 에라드래곤 인형은 어떻게 얻나요?</div>
+									</div>
+									<div class="faq__list_con">
+										<img src="/images/more_arrow.png" alt="더 보기" class="cm_arrow">
+									</div>
+								</a>
+							</div>
+						</div>
+						<div id="road">
+							<div class="cm-title">
+								<div>
+									<a href="/about/direction" class="cm-title-con">
+										<span th:text="#{menu.sub.about.direction}">오시는 길</span>
+										<img src="/images/more_arrow.png" alt="더 보기" class="cm_arrow">
+									</a>
+								</div>
+							</div>
+							<div id="roadCon" class="cm__list_margin">
+								<div class="road-con-list road-text" th:text="#{main.direction.decription}">
+									방문을 원하시는 분은 약도를 참고해주시기 바랍니다.
+								</div>
+								<div class="road-con-list">
+									<img src="/images/road_img.png" alt="더 보기" class="road_img">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
 	</th:block>
 </body>
+
 </html>
 <script>
-	function detail(){
-		location.href="/guide/notice/detail";
+	function detail() {
+		location.href = "/guide/notice/detail";
 	}
 </script>

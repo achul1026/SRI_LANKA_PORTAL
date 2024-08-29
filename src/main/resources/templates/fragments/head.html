@@ -1,13 +1,32 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="headFragment">
-    <head>
+    <head>		
+		<!--싱할라 폰트 로딩 최적화-->
+		<link rel="preload" th:href="@{/fonts/NotoSansSinhala-Thin.woff}"as="font" type="font/woff" crossorigin />
+		<link rel="preload" th:href="@{/fonts/NotoSansSinhala-Light.woff}"as="font" type="font/woff" crossorigin />
+		<link rel="preload" th:href="@{/fonts/NotoSansSinhala-ExtraLight.woff}"as="font" type="font/woff" crossorigin />
+		<link rel="preload" th:href="@{/fonts/NotoSansSinhala-Regular.woff}"as="font" type="font/woff" crossorigin />
+		<link rel="preload" th:href="@{/fonts/NotoSansSinhala-Medium.woff}"as="font" type="font/woff" crossorigin />
+		<link rel="preload" th:href="@{/fonts/NotoSansSinhala-Bold.woff}"as="font" type="font/woff" crossorigin />
+		<link rel="preload" th:href="@{/fonts/NotoSansSinhala-ExtraBold.woff}"as="font" type="font/woff" crossorigin />
+		<link rel="preload" th:href="@{/fonts/NotoSansSinhala-Black.woff}"as="font" type="font/woff" crossorigin />
+		
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>SRILANKA</title>
+        <link th:href="@{/images/favicon-16x16.png}" rel="icon">
+        <link th:href="@{/images/favicon-32x32.png}" rel="icon">
+        <link th:href="@{/css/style.css}" rel="stylesheet">
+        <script th:src="@{/js/jquery-1.12.4.min.js}"></script>
+        <script th:src="@{/js/jquery-ui.js}"></script>
+        <script th:src="@{/js/common.js}"></script>
+        <script th:src="@{/js/rda.modal.js}"></script>
+        <script th:src="@{/js/rda.chart.js}"></script>
+        <script th:src="@{/js/chart.min.js}"></script>
+        <title>SRILANKA POTAL</title>
         
 		<script type="text/javascript">
 		    var __contextPath__ = $('#contextPathHolder').attr('data-contextPath');

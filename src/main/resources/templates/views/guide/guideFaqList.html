@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<th:block th:if="${not #lists.isEmpty(faqList)}" th:each="item,status:${faqList}">
+	<input type="hidden" id="asynchronousPageNo" name="pageNo" th:value="${pagingDTO.pageNo}"/>
+	<input type="hidden" id="type" th:value="${type}">
+	<div class="faq-con-list-wrap" onclick="faqToggle(this)" th:data-idx="${status.index}">
+		<div class="faq-con-list-ques">
+			<div class="faq-con-list-cm-left">
+				<img src="/images/faq_img.png" alt="faq" class="faq-img">
+				<div class="faq-title" th:text="${item.faqQstn}">
+					황긍 에라드래곤 인형은 어떻게 얻나요?
+				</div>
+			</div>
+			<img src="/images/cm_arrow.png" alt="펼치기" class="faq-arrow">
+		</div>
+		<div class="faq-ans">
+			<div class="faq-con-list-cm-left">
+				<img src="/images/faq_img_ans.png" alt="faq" class="faq-img">
+				<div class="faq-title" th:text="${item.faqAns}">
+					2017 레어악세사리 상자 파트2 에서 얻을 수 있습니다.
+				</div>
+			</div>
+		</div>
+	</div>
+</th:block>
+<th:block th:unless="${not #lists.isEmpty(faqList)}">
+	<div id="noData" th:text="#{common.search.result.notExist}">검색 결과 없음</div>
+</th:block>
+<div id="pageNationWrap">
+	<th:block th:fragment="pagingFragment" th:if="${0 < pagingDTO.totalCount}">
+		<ul id="pageNationCon">
+			<li class="page-item"><a th:href="|javascript:pageMoveForAsynchronous('${pagingDTO.prevPageNo}')|" class="prev-btn"><img src="/images/cm_arrow.png" alt="prev" class="page-cm-img page-prev"></a></li>
+			<li th:each="pageNum : ${#numbers.sequence(pagingDTO.startPageNo, pagingDTO.endPageNo)}" class="page-item">
+				<a th:href="|javascript:pageMoveForAsynchronous('${pageNum}')|" th:text="${pageNum}" th:class="${pagingDTO.pageNo == pageNum ? 'active page-number' : 'page-number'}"></a>				
+			</li>
+			<li class="page-item"><a th:href="|javascript:pageMoveForAsynchronous('${pagingDTO.nextPageNo}')|" class="prev-btn"><img src="/images/cm_arrow.png" alt="prev" class="page-cm-img page-next"></a></li>
+		</ul>
+	</th:block>
+</div>
+</html>

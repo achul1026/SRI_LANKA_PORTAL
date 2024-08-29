@@ -1,0 +1,132 @@
+@charset 'UTF-8';
+#cmChartFilter {
+	margin-top: 30px;
+	border-top: 1px solid #323232;
+}
+.chart-filter-form {
+	display: flex;
+	flex-wrap: wrap;
+}
+.chart__filter {
+	width: 100%;
+	display: table;
+	flex-wrap: wrap;
+	border-bottom: 1px solid #dce2e9;
+}
+.chart__filter dt, .chart__filter dd {
+	padding: 16px;
+	display: table-cell;
+}
+.chart__filter dt {
+	width: 16%;
+	text-align: center;
+	background:#F2F3F8;
+	font-weight: 300;
+}
+.chart__filter dd {
+	width: 84%;
+	text-align: left;
+	display: flex;
+}
+#filterBtnWrap {
+	margin-top: 20px;
+	width: 100%;
+	text-align: center;
+}
+.select-list {
+	display: flex !important;
+	gap: 8px;
+	align-items: center;
+}
+#cmChartWrap {
+	margin-top: 60px;
+	width: 100%;
+	overflow-x: auto;
+}
+/*#cmChartWrap::-webkit-scrollbar {*/
+/*    width: 10px;*/
+/*    height: 10px;*/
+/*    border: 1px solid red;*/
+/*}*/
+/*#cmChartWrap::-webkit-scrollbar-track { */
+/*    background-color: gray !important;*/
+/*}*/
+/*#cmChartWrap::-webkit-scrollbar-thumb { */
+/*    background-color: skyblue !important;*/
+/*}*/
+
+#cmChartTitle {
+	padding-bottom: 16px;
+	display: flex;
+	justify-content: space-between;
+	align-items: end;
+	border-bottom:1px solid #ccc;
+}
+#chartWrap {
+	margin-top:16px;
+}
+#chartWrap canvas {
+	
+}
+#chartStatisText {
+	font-size: 16px;
+	font-weight: 400;
+}
+#trafficTableWrap {
+	margin-top: 60px;
+	width: 100%;
+    overflow: auto;
+}
+#chartTable {
+	border-right:1px solid #fff ;
+}
+#chartTable thead {
+	background: #F2F3F8;
+}
+
+#chartTable td {
+	padding: 16px;
+	text-align: center;
+	vertical-align: middle;
+	border: 1px solid #ccc;
+}
+@media (max-width: 1280px) {
+	.faq-tab-btn-wrap {
+		flex-wrap: wrap;
+		padding: 0 !important;
+	}
+	.search-cm-btn {
+		width: 50%;
+		border-radius: 0;
+		color: #323232;
+	}
+	.chart__filter dt {
+		display: none;
+	}
+	.chart__filter dd {
+		background: #F2F3F8;
+		width: 100%;
+	}
+	.chart-select {
+		width: 100%;
+	}
+	#chartWrap {
+		 min-width: 1200px;
+  		 overflow: auto;
+	}
+	#chartTable {
+		width: 1200px;
+	}
+	#cmChartTitle {
+		flex-wrap: wrap;
+	}
+	#chartStatisText {
+		margin-bottom: 12px;
+		width: 100%;
+	}
+}  
+@media (max-width: 768px) {
+	.select-list {
+		flex-wrap: wrap;
+	}
+}  

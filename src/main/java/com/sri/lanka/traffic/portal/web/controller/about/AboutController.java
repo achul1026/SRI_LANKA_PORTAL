@@ -20,6 +20,7 @@ public class AboutController {
 	  */
 	@GetMapping("/organization")
 	public String organizationPage(Model model) {
+		//TODO 삭제
 		return "views/about/aboutOrganization";
 	}
 	

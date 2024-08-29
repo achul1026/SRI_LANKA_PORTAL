@@ -1,17 +1,264 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-	<th:block th:fragment="headerFragment">
-		<div id="header">
-			<div><a href="/main">LOGO</a></div>
-			<div><a href="/trfcstats/velocity">교통DB</a></div>
-			<div><a href="/trfcinfo/trfcnews">교통정보</a></div>
-			<div><a href="/guide/notice">이용안내</a></div>
-			<div><a href="/about/organization">기관소개</a></div>
-			<form action="/search/integrate" method="get">
-				<input type="text" id="searchContent" name="searchContent" placeholder="통합검색" />
-			</form>
-			<br>----------------------------------------------
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<th:block th:fragment="headerFragment">
+	<header>
+		<div id="headerContainer">
+			<div class="header__list">
+				<a href="/main">
+					<img src="/images/logo.png" alt="로고" class="logo">
+				</a>
+			</div>
+			<div class="header__list header-menu">
+				<ul>
+					<li>
+						<span th:text="#{menu.main.trafficDB}">교통DB</span>
+						<ul class="drop-menu">
+							<li>
+								<a href="/trfcstats/velocity" th:text="#{menu.sub.trafficDB.velocity}">
+									속도
+								</a>
+							</li>
+							<li>
+								<a href="/trfcstats/trafficvolume" th:text="#{menu.sub.trafficDB.trafficvolume}">
+									교통량
+								</a>
+							</li>
+<!-- 							<li> -->
+<!-- 								<a href="/trfcstats/congestionrate" th:text="#{menu.sub.trafficDB.congestionrate}"> -->
+<!-- 									혼잡도 -->
+<!-- 								</a> -->
+<!-- 							</li> -->
+						</ul>
+					</li>
+					<li>
+						<span th:text="#{menu.main.trafficInfo}">교통정보</span>
+						<ul class="drop-menu">
+							<li>
+								<a href="/trfcinfo/trfcnews" th:text="#{menu.sub.trafficInfo.news}">
+									교통소식
+								</a>
+							</li>
+							<li>
+								<a href="/trfcinfo/resources" th:text="#{menu.sub.trafficInfo.resources}">
+									자료실
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<span th:text="#{menu.main.guide}">이용안내</span>
+						<ul class="drop-menu">
+							<li>
+								<a href="/guide/notice" th:text="#{menu.sub.guide.notice}">
+									공지사항
+								</a>
+							</li>
+							<li>
+								<a href="/guide/faq" th:text="#{menu.sub.guide.faq}">
+									FAQ
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<span th:text="#{menu.main.about}">기관소개</span>
+						<ul class="drop-menu">
+<!-- 							<li> -->
+<!-- 								<a href="/about/organization" th:text="#{menu.sub.about.organization}"> -->
+<!-- 									조직도 -->
+<!-- 								</a> -->
+<!-- 							</li> -->
+							<!-- 							<li> -->
+							<!-- 								<a href="/about/related-site" th:text="#{menu.sub.about.relatedSite}"> -->
+							<!-- 									관련 사이트 -->
+							<!-- 								</a> -->
+							<!-- 							</li> -->
+							<li>
+								<a href="/about/direction" th:text="#{menu.sub.about.direction}">
+									오시는 길
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<div id="dropBg">
+
+				</div>
+			</div>
+			<div class="header__list header-search">
+				<form id="mainSearch" action="/search" method="get">
+					<input type="text" id="searchContent" name="searchContent"
+						th:placeholder="#{common.search.total}" />
+					<img src="/images/search.png" alt="검색버튼" id="searchIcon" onclick="submit()">
+				</form>
+			</div>
+			<div id="langSave" class="web-lang">
+				<select class="cm-table-select lang-check" onchange="setLangCookie()">
+					<option id="eng" name="lang" value="eng" th:selected="${lang == '' or lang == 'eng'}">Eng</option>
+					<option id="sinh" name="lang" value="sin" th:selected="${lang == 'sin'}">Sinh</option>
+					<option id="kor" name="lang" value="kor" th:selected="${lang == 'kor'}">Kor</option>
+				</select>
+				<img src="/images/select_arrow.png" alt="화살표" class="cm-select-img header-select">
+			</div>
+			<div id="mobileMenu">
+				<div id="mobileMenuToggle">
+					<input type="checkbox" id="mobileToggleBtn" />
+					<span class="mobile-hamber"></span>
+					<span class="mobile-hamber"></span>
+					<span class="mobile-hamber"></span>
+
+					<div id="mobileSubMenuWrap">
+						<ul id="mobileSubMenu">
+							<li class="parentMenu" onclick="mobileMenuToggle(this)" data-idx="0">
+								<div class="mobile-title">
+									<h4 th:text="#{menu.main.trafficDB}">교통DB</h4>
+<!--									<img src="/images/cm_arrow.png" alt="더 보기" class="left-cm-arrow mobile-arrow">-->
+									<i class="mobile-arrow"></i>
+								</div>
+								<ul class="mobile-drop-menu">
+									<li>
+										<a href="/trfcstats/velocity" th:text="#{menu.sub.trafficDB.velocity}">
+											속도
+										</a>
+									</li>
+									<li>
+										<a href="/trfcstats/trafficvolume"
+											th:text="#{menu.sub.trafficDB.trafficvolume}">
+											교통량
+										</a>
+									</li>
+									<li>
+										<a href="/trfcstats/congestionrate"
+											th:text="#{menu.sub.trafficDB.congestionrate}">
+											혼잡도
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li class="parentMenu" onclick="mobileMenuToggle(this)" data-idx="1">
+								<div class="mobile-title">
+									<h4 th:text="#{menu.main.trafficInfo}">교통정보</h4>
+									<i class="mobile-arrow"></i>
+								</div>
+								<ul class="mobile-drop-menu">
+									<li>
+										<a href="/trfcinfo/trfcnews" th:text="#{menu.sub.trafficInfo.news}">
+											교통소식
+										</a>
+									</li>
+									<li>
+										<a href="/trfcinfo/resources" th:text="#{menu.sub.trafficInfo.resources}">
+											자료실
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li class="parentMenu" onclick="mobileMenuToggle(this)" data-idx="2">
+								<div class="mobile-title">
+									<h4 th:text="#{menu.main.guide}">이용안내</h4>
+									<i class="mobile-arrow"></i>
+								</div>
+								<ul class="mobile-drop-menu">
+									<li>
+										<a href="/guide/notice" th:text="#{menu.sub.guide.notice}">
+											공지사항
+										</a>
+									</li>
+									<li>
+										<a href="/guide/faq" th:text="#{menu.sub.guide.faq}">
+											FAQ
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li class="parentMenu" onclick="mobileMenuToggle(this)" data-idx="3">
+								<div class="mobile-title">
+									<h4 th:text="#{menu.main.about}">기관소개</h4>
+									<i class="mobile-arrow"></i>
+								</div>
+								<ul class="mobile-drop-menu">
+									<li>
+										<a href="/about/organization" th:text="#{menu.sub.about.organization}">
+											조직도
+										</a>
+									</li>
+									<li>
+										<a href="/about/direction" th:text="#{menu.sub.about.direction}">
+											오시는 길
+										</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<div id="langSave" class="mobile-lang">
+							<select class="cm-table-select lang-check" onchange="setLangCookie()">
+								<option id="eng" name="lang" value="eng" th:selected="${lang == '' or lang == 'eng'}">
+									Eng
+								</option>
+								<option id="sinh" name="lang" value="sin" th:selected="${lang == 'sin'}">Sinh</option>
+								<option id="kor" name="lang" value="kor" th:selected="${lang == 'kor'}">Kor</option>
+							</select>
+							<img src="/images/select_arrow.png" alt="화살표" class="cm-select-img header-select">
+						</div>
+					</div>
+					<div id="mobileMenuBg">
+
+					</div>
+
+				</div>
+			</div>
 		</div>
-	</th:block>
+
+		<script type="text/javascript">
+
+			document.addEventListener("DOMContentLoaded", function () {
+				//언어 쿠키 세팅
+				let lang = getCookie("lang");
+				if (isNull(lang)) lang = 'eng';
+				document.getElementById('langSave').value = lang;
+				if (isNull(getCookie('lang'))) setCookie("lang", lang, 1);
+			});
+
+			function getCookie(cookieName) {
+				cookieName = cookieName + '=';
+				var cookieData = document.cookie;
+				var start = cookieData.indexOf(cookieName);
+				var cookieValue = '';
+				if (start != -1) {
+					start += cookieName.length;
+					var end = cookieData.indexOf(';', start);
+					if (end == -1) end = cookieData.length;
+					cookieValue = cookieData.substring(start, end);
+				}
+				return unescape(cookieValue);
+			}
+
+			let setLangCookie = () => {
+				let selectLang = document.getElementById('selectLang');
+				const langValue = document.getElementsByName('lang');
+				let selectedValue;
+				for (const lang of langValue) {
+					if (lang.selected) {
+						selectedValue = lang.value;
+						break;
+					}
+				}
+				setCookie("lang", selectedValue, 1);
+				window.location.reload();
+			}
+			function setCookie(cookieName, value, exdays) {
+				var exdate = new Date();
+				exdate.setDate(exdate.getDate() + exdays);
+				var cookieValue = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toGMTString()) + "; path=/;";
+				document.cookie = cookieName + "=" + cookieValue;
+			}
+
+		</script>
+	</header>
+
+</th:block>
+
 </html>
+<script>
+
+</script>

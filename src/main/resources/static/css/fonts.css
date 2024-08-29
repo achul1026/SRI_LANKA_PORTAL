@@ -1,0 +1,88 @@
+@charset "UTF-8";
+
+/*한국말*/
+@font-face {
+	font-family: 'NanumSquare';
+	font-weight: 100;
+	font-display: block;
+    src: local('NanumSquareL'),
+    url('/fonts/NanumSquareL.woff') format('woff'),
+    url('/fonts/NanumSquareL.otf') format('opentype');
+}
+@font-face {
+	font-family: 'NanumSquare';
+	font-weight: 200;
+	font-display: block;
+	src: local('NanumSquareR'),
+    url('/fonts/NanumSquareR.woff') format('woff'),
+    url('/fonts/NanumSquareR.otf') format('opentype');
+}
+@font-face {
+	font-family: 'NanumSquare';
+	font-weight: 300;
+	font-display: block;
+    src: local('NanumSquareB'),
+    url('/fonts/NanumSquareB.woff') format('woff'),
+    url('/fonts/NanumSquareB.otf') format('opentype');
+}
+@font-face {
+	font-family: 'NanumSquare';
+	font-weight: 400;
+	font-display: block;
+	src: local('NanumSquareEB'),
+    url('/fonts/NanumSquareEB.woff') format('woff'),
+    url('/fonts/NanumSquareEB.otf') format('opentype');
+}
+
+
+
+/*싱할라어*/
+@font-face {
+	font-family: 'NotoSansSH';
+	font-weight: 100;
+	font-display: block;
+	src: url('/fonts/NotoSansSinhala-Thin.woff') format('woff');
+}
+@font-face {
+	font-family: 'NotoSansSH';
+	font-weight: 200;
+	font-display: block;
+	src: url('/fonts/NotoSansSinhala-Light.woff') format('woff');
+}
+@font-face {
+	font-family: 'NotoSansSH';
+	font-weight: 300;
+	font-display: block;
+	src: url('/fonts/NotoSansSinhala-ExtraLight.woff') format('woff');
+}
+@font-face {
+	font-family: 'NotoSansSH';
+	font-weight: 400;
+	font-display: block;
+	src: url('/fonts/NotoSansSinhala-Regular.woff') format('woff');
+}
+@font-face {
+	font-family: 'NotoSansSH';
+	font-weight: 500;
+	font-display: block;
+	src: url('/fonts/NotoSansSinhala-Medium.woff') format('woff');
+}
+@font-face {
+	font-family: 'NotoSansSH';
+	font-weight: 600;
+	font-display: block;
+	src: url('/fonts/NotoSansSinhala-Bold.woff') format('woff');
+}
+@font-face {
+	font-family: 'NotoSansSH';
+	font-weight: 700;
+	font-display: block;
+	src: url('/fonts/NotoSansSinhala-ExtraBold.woff') format('woff');
+}
+@font-face {
+	font-family: 'NotoSansSH';
+	font-weight: 800;
+	font-display: block;
+	src: url('/fonts/NotoSansSinhala-Black.woff') format('woff');
+}
+

@@ -4,66 +4,77 @@
       layout:decorate="~{layout/layout}">
 <body>
 	<th:block layout:fragment="content">
-		<div><h1>관련사이트</h1></div>
-		<!-- 	이동 편의를 위한 임시 링크	 -->
-		<div><a href="/about/organization">조직도</a> <a href="/about/related-site">관련사이트</a> <a href="/about/direction">오시는 길</a></div>
-		<table>
-			<thead>
-				<tr>
-					<th colspan="4">교통관련기관</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>고속도로 운영 유지 관리과</td>
-					<td>교통 시설물 유지 관리과</td>
-					<td>교통안전 관리과</td>
-					<td>통계청</td>
-				</tr>
-			</tbody>
-		</table>
-		<table>
-			<thead>
-				<tr>
-					<th colspan="4">교통정보 제공 사이트</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>콜롬보 교통센터</td>
-					<td>농촌진흥청</td>
-					<td>교통방송</td>
-					<td>도로개발부</td>
-				</tr>
-				<tr>
-					<td>도로교통부</td>
-					<td>켄디 교통센터</td>
-					<td>경찰청교통정보과</td>
-					<td>국토관리청</td>
-				</tr>
-				<tr>
-					<td>지방국토관리청</td>
-					<td>도로공사</td>
-					<td>국가교통정보센터</td>
-					<td>기상청</td>
-				</tr>
-			</tbody>
-		</table>
-		<table>
-			<thead>
-				<tr>
-					<th colspan="4">해외교통 사이트</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>미국 교통통계청</td>
-					<td>일본 국토교통부</td>
-					<td>한국 교통부</td>
-					<td>한국 통계청</td>
-				</tr>
-			</tbody>
-		</table>
+	<div id="breadCrumb">
+			<div id="breadCrumbCon">
+				<ul>
+					<li>
+						<a href="/main">
+							<img src="/images/home.png" alt="메인 페이지" class="bread-img">
+							Home
+						</a>
+					</li>
+					<li>
+						<a href="/main">
+							공지사항
+						</a>
+					</li>
+					<li>
+						<a href="/main" class="on">
+							상세페이지
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div id="container">
+			<div id="CmLeftMenu">
+				<div id="CmLeftTitle" th:text="#{menu.main.about}">
+					기관소개
+				</div>
+				<div id="detailCmList">
+					<ul>
+						<li>
+							<a href="/about/organization" class="detail-cm-btn">
+								<span th:text="#{menu.sub.about.organization}">조직도</span>
+								<img src="/images/cm_arrow.png" alt="더 보기" class="left-cm-arrow">
+							</a>
+						</li>
+						<li>
+<!-- 							<a href="/about/related-site" class="detail-cm-btn"> -->
+<!-- 								<span>관련 사이트</span> -->
+<!-- 								<img src="/images/cm_arrow.png" alt="더 보기" class="left-cm-arrow"> -->
+<!-- 							</a> -->
+						</li>
+						<li>
+							<a href="/about/direction" class="detail-cm-btn">
+								<span th:text="#{menu.sub.about.direction}">오시는 길</span>
+								<img src="/images/cm_arrow.png" alt="더 보기" class="left-cm-arrow">
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div id="containerTable">
+				<div id="cmTableTitle">
+					<h3>관련 사이트</h3>
+				</div>
+				<div id="drInfo">
+					<div class="rs-site-wrap">
+						<div class="cm-info-title">
+							<h3>위치 안내</h3>
+						</div>
+						<div class="rs-site-list">
+							<a href="" class="rs-site-btn">고속도로 운영 유지 관리과</a>
+							<a href="" class="rs-site-btn">고속도로 운영 유지 관리과</a>
+							<a href="" class="rs-site-btn">고속도로 운영 유지 관리과</a>
+							<a href="" class="rs-site-btn">고속도로 운영 유지 관리과</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</th:block>
 </body>
 </html>

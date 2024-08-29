@@ -4,39 +4,116 @@
       layout:decorate="~{layout/layout}">
 <body>
 	<th:block layout:fragment="content">
-		<div><h1>통합검색</h1></div>
-		<div>
-			<input type="button" value="통합검색" onclick="location.href='/search/integrate'">
-			<input type="button" value="교통소식" onclick="location.href='/search/news'">
-			<input type="button" value="자료실" onclick="location.href='/search/resources'">
-			<input type="button" value="공지사항" onclick="location.href='/search/notice'">
+		<div id="searchBanner">
+			<div id="searchBannerCon">
+				<div id="searchTitle" th:text="#{common.search.total}">전체 검색</div>
+				<div id="searchBox">
+					<!--					<select id="searchSelect">-->
+					<!--						<option>전체</option>-->
+					<!--					</select>-->
+					<div id="searchBannerInput">
+						<form id="searchForm" name="searchForm" action="/search" method="get">
+							<input type="text" id="searchContent" class="search-banner-input" name="searchContent"
+								th:placeholder="#{common.search.placeholder.searchContext}" />
+							<img src="/images/search.png" alt="검색버튼" id="searchBannerIcon">
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div>
-			<form id="searchForm" name="searchForm" action="/search/resources" method="get">
-				<input type="text" id="searchContent" name="searchContent" placeholder="검색어를 입력하세요."/>
-			</form>
+		<div id="totalSearchBtnWrap">
+			<input type="button" th:value="#{common.search.total}" class="search-cm-btn" onclick="location.href='/search'">
+			<input type="button" th:value="#{menu.sub.trafficInfo.news}" class="search-cm-btn" onclick="location.href='/search/news'">
+			<input type="button" th:value="#{menu.sub.trafficInfo.resources}" class="search-cm-btn on" onclick="location.href='/search/resources'">
+			<input type="button" th:value="#{menu.sub.guide.notice}" class="search-cm-btn" onclick="location.href='/search/notice'">
 		</div>
-		<table>
-			<thead>
-				<tr>
-					<th colspan="2">자료실 [111건]</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr onclick="trfcResourcesDetail()">
-					<td>2024 교통문화지수 자료</td>
-					<td>2024-02-14</td>
-				</tr>
-				<tr onclick="trfcResourcesDetail()">
-					<td>2024 교통문화지수 자료</td>
-					<td>2024-02-14</td>
-				</tr>
-				<tr onclick="trfcResourcesDetail()">
-					<td>2024 교통문화지수 자료</td>
-					<td>2024-02-14</td>
-				</tr>
-			</tbody>
-		</table>
+		
+		<!--전체 리스트-->
+		<div class="cm-search-list-wrap">
+			<div class="cm-search-list-title">
+				<h3 th:text="#{menu.sub.trafficInfo.resources}">자료실</h3>
+			</div>
+			<div class="cm-search-list-con">
+				<a href="/trfcinfo/resources/detail" class="cm-search-list">
+					<div class="cm-search-list-left">
+						<div class="cm-search-list-con-title">
+							교통소식 및 재해보상 내용 급여 종류
+						</div>
+						<div class="cm-search-list-con-sub-title">
+							게시글 내용입니다.
+						</div>
+						<div class="cm-search-list-con-cate">
+							<span class="cate-con">교통</span>
+							<span class="cate-write">RDA</span>
+						</div>
+					</div>
+				</a>
+				<a href="/trfcinfo/resources/detail" class="cm-search-list">
+					<div class="cm-search-list-left">
+						<div class="cm-search-list-con-title">
+							교통소식 및 재해보상 내용 급여 종류
+						</div>
+						<div class="cm-search-list-con-sub-title">
+							게시글 내용입니다.
+						</div>
+						<div class="cm-search-list-con-cate">
+							<span class="cate-con">교통</span>
+							<span class="cate-write">RDA</span>
+						</div>
+					</div>
+				</a>
+				<a href="/trfcinfo/resources/detail" class="cm-search-list">
+					<div class="cm-search-list-left">
+						<div class="cm-search-list-con-title">
+							교통소식 및 재해보상 내용 급여 종류
+						</div>
+						<div class="cm-search-list-con-sub-title">
+							게시글 내용입니다.
+						</div>
+						<div class="cm-search-list-con-cate">
+							<span class="cate-con">교통</span>
+							<span class="cate-write">RDA</span>
+						</div>
+					</div>
+				</a>
+				<a href="/trfcinfo/resources/detail" class="cm-search-list">
+					<div class="cm-search-list-left">
+						<div class="cm-search-list-con-title">
+							교통소식 및 재해보상 내용 급여 종류
+						</div>
+						<div class="cm-search-list-con-sub-title">
+							게시글 내용입니다.
+						</div>
+						<div class="cm-search-list-con-cate">
+							<span class="cate-con">교통</span>
+							<span class="cate-write">RDA</span>
+						</div>
+					</div>
+				</a>
+				<a href="/trfcinfo/resources/detail" class="cm-search-list">
+					<div class="cm-search-list-left">
+						<div class="cm-search-list-con-title">
+							교통소식 및 재해보상 내용 급여 종류
+						</div>
+						<div class="cm-search-list-con-sub-title">
+							게시글 내용입니다.
+						</div>
+						<div class="cm-search-list-con-cate">
+							<span class="cate-con">교통</span>
+							<span class="cate-write">RDA</span>
+						</div>
+					</div>
+				</a>
+				<!--더 보기-->
+				<div class="search-list-more-btn-wrap">
+					<a href="/trfcinfo/resources" class="search-list-more-btn">
+						<span th:text="#{common.button.view.all}">전체 보기</span>
+						<img src="/images/cm_list_more_arrow.png" alt="전체 보기" class="cm-list-more-img">
+					</a>
+				</div>
+			</div>
+		</div>
+		
 	</th:block>
 </body>
 </html>

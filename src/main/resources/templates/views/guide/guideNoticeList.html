@@ -1,50 +1,126 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
 <body>
 	<th:block layout:fragment="content">
-		<div><h1>공지사항</h1></div>
-		<!-- 	이동 편의를 위한 임시 링크	 -->
-		<div><a href="/guide/notice">공지사항</a> <a href="/guide/faq">FAQ</a></div>
-		<div>
-			<form id="searchForm" name="searchForm" action="/guide/notice" method="get">
-				<select>
-					<option>전체</option>
-					<option>제목</option>
-					<option>내용</option>
-				</select>
-				<input type="text" id="searchContent" name="searchContent" placeholder="검색어를 입력하세요."/>
-				<input type="submit" value="조회" id="searchBtn"/>
-			</form>
+		<div id="breadCrumb">
+			<div id="breadCrumbCon">
+				<ul>
+					<li>
+						<a href="/main">
+							<img src="/images/home.png" alt="메인 페이지" class="bread-img">
+							Home
+						</a>
+					</li>
+					<li>
+						<a href="/guide/notice" th:text="#{menu.main.guide}">
+							공지사항
+						</a>
+					</li>
+					<li>
+						<a href="/guide/notice" th:text="#{menu.sub.guide.notice}">
+							상세페이지
+						</a>
+					</li>
+				</ul>
+			</div>
 		</div>
-		<div id="totalList">총 <span id="totalCount"></span>건의 검색 결과를 찾았습니다.</div>
-		<table>
-			<thead>
-				<tr>
-					<th>번호</th>
-					<th>제목</th>
-					<th>첨부</th>
-					<th>작성일</th>
-					<th>조회수</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr onclick="detail()">
-					<td>TEST</td>
-					<td>TEST</td>
-					<td>TEST</td>
-					<td>TEST</td>
-					<td>TEST</td>
-				</tr>
-			</tbody>
-		</table>
-<!-- 		<div th:insert="tags/paging :: pagingFragment"></div> -->
+
+		<div id="container">
+			<div id="CmLeftMenu">
+				<div id="CmLeftTitle" th:text="#{menu.main.guide}">
+					이용안내
+				</div>
+				<div id="detailCmList">
+					<ul>
+						<li>
+							<a href="/guide/notice" class="detail-cm-btn">
+								<span th:text="#{menu.sub.guide.notice}">공지사항</span>
+								<img src="/images/cm_arrow.png" alt="더 보기" class="left-cm-arrow">
+							</a>
+						</li>
+						<li>
+							<a href="/guide/faq" class="detail-cm-btn">
+								<span th:text="#{menu.sub.guide.faq}">FAQ</span>
+								<img src="/images/cm_arrow.png" alt="더 보기" class="left-cm-arrow">
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div id="containerTable">
+				<div id="cmTableTitle">
+					<h3 th:text="#{menu.sub.guide.notice}">공지사항</h3>
+				</div>
+				<div id="tableSearchWrap">
+					<div id="totalList">
+						<div id="totalCount">
+							"<span th:text="${pagingDTO.totalCount}">4</span>" 
+						</div>
+						<span th:text="#{common.search.result}">건의 검색 결과를 찾았습니다.</span>
+					</div>
+					<form id="searchForm" name="searchForm" action="/guide/notice" method="get">
+						<input type="hidden" id="pageNo" name="pageNo" th:value="${pagingDTO.pageNo}">
+						<div class="cm-select-box">
+							<select class="cm-table-select" name="searchType">
+								<option th:text="#{common.select.all}" value="">전체</option>
+								<option th:text="#{common.table.subject}" value="title" th:selected="${searchDTO.searchType eq 'title'}">제목</option>
+								<option th:text="#{common.table.content}" value="content" th:selected="${searchDTO.searchType eq 'content'}">내용</option>
+							</select>
+							<img src="/images/select_arrow.png" alt="화살표" class="cm-select-img">
+						</div>
+						<input type="text" id="searchContent" class="cm-table-search-input" name="searchContent"
+							th:placeholder="#{common.search.placeholder.searchContext}" th:value="${searchDTO.searchContent}"/>
+						<input type="submit" id="searchBtn" class="is-key-button" th:value="#{common.button.search}" />
+					</form>
+				</div>
+				<div id="tableWrap">
+					<div class="thead cm-table-layout">
+						<ul>
+							<li class="table-number" th:text="#{common.table.number}">번호</li>
+							<li class="table-title" th:text="#{common.table.subject}">제목</li>
+							<li class="table-file" th:text="#{common.table.file}">첨부파일</li>
+							<li class="table-date" th:text="#{common.table.registDate}">작성일</li>
+							<li class="table-eye" th:text="#{common.table.view}">조회수</li>
+						</ul>
+					</div>
+					<div class="tbody cm-table-layout">
+						<th:block th:if="${not #lists.isEmpty(bbsList)}">
+						<ul th:each="item:${bbsList}" th:onclick="|location.href='@{/guide/notice/{bbsId}(bbsId=${item.bbsId})}'|">
+							<li class="table-number" th:text="${item.rownm}">1</li>
+							<li class="table-title" th:text="${item.bbsTitle}">제목입니다</li>
+							<li class="table-file">
+								<th:block th:if="${item.fileYn == 'Y'}">
+									<img src="/images/file_img.png" alt="첨부파일" class="cm-file-img">
+								</th:block>
+							</li>
+							<li class="table-date" th:text="${item.registDt}">작성일</li>
+							<li class="table-eye" th:text="${item.viewCnt}">60</li>
+						</ul>
+						</th:block>
+						<th:block th:unless="${not #lists.isEmpty(bbsList)}">
+							<ul>
+								<li th:text="#{common.search.result.notExist}">검색결과가 없습니다.</li>
+							</ul>
+						</th:block>
+					</div>
+				</div>
+				<div id="pageNationWrap">
+					<th:block th:fragment="pagingFragment" th:if="${0 < pagingDTO.totalCount}">
+						<ul id="pageNationCon">
+							<li class="page-item"><a th:href="|javascript:pageMove('${pagingDTO.prevPageNo}')|" class="prev-btn"><img src="/images/cm_arrow.png" alt="prev" class="page-cm-img page-prev"></a></li>
+							<li th:each="pageNum : ${#numbers.sequence(pagingDTO.startPageNo, pagingDTO.endPageNo)}" class="page-item">
+								<a th:href="|javascript:pageMove('${pageNum}')|" th:text="${pageNum}" th:class="${pagingDTO.pageNo == pageNum ? 'active page-number' : 'page-number'}"></a>				
+							</li>
+							<li class="page-item"><a th:href="|javascript:pageMove('${pagingDTO.nextPageNo}')|" class="prev-btn"><img src="/images/cm_arrow.png" alt="prev" class="page-cm-img page-next"></a></li>
+						</ul>
+					</th:block>
+				</div>
+			</div>
+		</div>
+		<!-- 		<div th:insert="tags/paging :: pagingFragment"></div> -->
 	</th:block>
 </body>
 </html>
-<script>
-function detail(){
-	location.href="/guide/notice/detail";
-}
-</script>

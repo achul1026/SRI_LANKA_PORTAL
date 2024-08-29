@@ -4,64 +4,154 @@
       layout:decorate="~{layout/layout}">
 <body>
 	<th:block layout:fragment="content">
-		<div><h1>조직도</h1></div>
-		<!-- 	이동 편의를 위한 임시 링크	 -->
-		<div><a href="/about/organization">조직도</a> <a href="/about/related-site">관련사이트</a> <a href="/about/direction">오시는 길</a></div>
-		<div>
-			<form id="searchForm" name="searchForm" action="/about/organization" method="get">
-				<select>
-					<option>전체</option>
-					<option>부서</option>
-					<option>직책</option>
-					<option>성명</option>
-					<option>전화번호</option>
-					<option>담당업무</option>
-				</select>
-				<input type="text" id="searchContent" name="searchContent" placeholder="검색어를 입력하세요."/>
-				<input type="submit" value="조회" id="searchBtn"/>
-			</form>
+		<div id="breadCrumb">
+			<div id="breadCrumbCon">
+				<ul>
+					<li>
+						<a href="/main">
+							<img src="/images/home.png" alt="메인 페이지" class="bread-img">
+							Home
+						</a>
+					</li>
+					<li>
+						<a href="/about/organization" th:text="#{menu.main.about}">
+							공지사항
+						</a>
+					</li>
+					<li>
+						<a href="/about/organization" th:text="#{menu.sub.about.organization}">
+							상세페이지
+						</a>
+					</li>
+				</ul>
+			</div>
 		</div>
-		<table>
-			<thead>
-				<tr>
-					<th>부서</th>
-					<th>직책</th>
-					<th>성명</th>
-					<th>전화번호</th>
-					<th>담당업무</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>교통정보과</td>
-					<td>교통정보총괄팀장</td>
-					<td>정일원</td>
-					<td>012-3456-7890</td>
-					<td>교통정보 업무 총괄</td>
-				</tr>
-				<tr>
-					<td>교통정보과</td>
-					<td>교통정보총괄팀장</td>
-					<td>정일원</td>
-					<td>012-3456-7890</td>
-					<td>교통정보 업무 총괄</td>
-				</tr>
-				<tr>
-					<td>교통정보과</td>
-					<td>교통정보총괄팀장</td>
-					<td>정일원</td>
-					<td>012-3456-7890</td>
-					<td>교통정보 업무 총괄</td>
-				</tr>
-				<tr>
-					<td>교통정보과</td>
-					<td>교통정보총괄팀장</td>
-					<td>정일원</td>
-					<td>012-3456-7890</td>
-					<td>교통정보 업무 총괄</td>
-				</tr>
-			</tbody>
-		</table>
+
+		<div id="container">
+			<div id="CmLeftMenu">
+				<div id="CmLeftTitle" th:text="#{menu.main.about}">
+					기관소개
+				</div>
+				<div id="detailCmList">
+					<ul>
+						<li>
+							<a href="/about/organization" class="detail-cm-btn">
+								<span th:text="#{menu.sub.about.organization}">조직도</span>
+								<img src="/images/cm_arrow.png" alt="더 보기" class="left-cm-arrow">
+							</a>
+						</li>
+						<li>
+<!-- 							<a href="/about/related-site" class="detail-cm-btn"> -->
+<!-- 								<span>관련 사이트</span> -->
+<!-- 								<img src="/images/cm_arrow.png" alt="더 보기" class="left-cm-arrow"> -->
+<!-- 							</a> -->
+						</li>
+						<li>
+							<a href="/about/direction" class="detail-cm-btn">
+								<span th:text="#{menu.sub.about.direction}">오시는 길</span>
+								<img src="/images/cm_arrow.png" alt="더 보기" class="left-cm-arrow">
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div id="containerTable">
+				<div id="cmTableTitle">
+					<h3 th:text="#{menu.sub.about.organization}">조직도</h3>
+				</div>
+				<div id="tableSearchWrap">
+					<div id="totalList">
+						<div id="totalCount">
+							"<span>4</span>" 
+						</div>
+						<span th:text="#{common.search.result}">건의 검색 결과를 찾았습니다.</span>
+					</div>
+					<form id="searchForm" name="searchForm" action="/about/organization" method="get">
+						<div class="cm-select-box">
+							<select class="cm-table-select">
+								<option th:text="#{common.select.all}">전체</option>
+								<option>제목</option>
+								<option>내용</option>
+							</select>
+							<img src="/images/select_arrow.png" alt="화살표" class="cm-select-img">
+						</div>
+						<input type="text" id="searchContent" class="cm-table-search-input" name="searchContent" th:placeholder="#{common.search.placeholder.searchContext}"/>
+						<input type="submit" id="searchBtn" class="is-key-button" th:value="#{common.button.search}"/>
+					</form>
+				</div>
+				<div id="tableWrap">
+					<div class="thead cm-table-layout">
+						<ul>
+							<li class="table-orgz01" th:text="#{common.department}">부서</li>
+							<li class="table-orgz01" th:text="#{about.position}">직책</li>
+							<li class="table-orgz01" th:text="#{common.name}">이름</li>
+							<li class="table-orgz01" th:text="#{common.contact}">전화번호</li>
+							<li class="table-orgz01" th:text="#{about.responsibilities}">담당업무</li>
+						</ul>
+					</div>
+					<div class="tbody cm-table-layout">
+						<ul>
+							<li class="table-orgz01">교통정보과</li>
+							<li class="table-orgz02">교통정보종합팀장</li>
+							<li class="table-orgz03">박지훈</li>
+							<li class="table-orgz04">010-0000-000</li>
+							<li class="table-orgz05">교통전체 관리</li>
+						</ul>
+					</div>
+				</div>
+
+				<div id="pageNationWrap">
+					<ul id="pageNationCon">
+						<li>
+							<a href="" class="first-btn">
+								First
+							</a>
+						</li>
+						<li>
+							<a href="" class="prev-btn">
+								<img src="/images/cm_arrow.png" alt="prev" class="page-cm-img page-prev">
+							</a>
+						</li>
+						<li>
+							<a href="" class="page-number">
+								1
+							</a>
+						</li>
+						<li>
+							<a href="" class="page-number">
+								2
+							</a>
+						</li>
+						<li>
+							<a href="" class="page-number">
+								3
+							</a>
+						</li>
+						<li>
+							<a href="" class="page-number">
+								4
+							</a>
+						</li>
+						<li>
+							<a href="" class="page-number">
+								5
+							</a>
+						</li>
+						<li>
+							<a href="" class="prev-btn">
+								<img src="/images/cm_arrow.png" alt="prev" class="page-cm-img page-next">
+							</a>
+						</li>
+						<li>
+							<a href="" class="last-btn">
+								Last
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</th:block>
 </body>
 </html>
